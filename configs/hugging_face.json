@@ -5,7 +5,7 @@
         "description": "<p>This is a collection of negative embeddings for Stable Diffusion negative prompts</p>",
         "type": "TextualInversion",
         "poi": false,
-        "nsfw": false,
+        "nsfw": true,
         "allowNoCredit": true,
         "allowCommercialUse": "Rent",
         "allowDerivatives": true,

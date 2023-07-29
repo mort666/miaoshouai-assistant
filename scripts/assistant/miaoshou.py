@@ -293,7 +293,7 @@ class MiaoShouAssistant(object):
                         btn_search = gr.Button("Search")
 
                     with gr.Row().style(equal_height=True):
-                        nsfw_checker = gr.Checkbox(label='NSFW', value=False, elem_id="chk_nsfw", interactive=True)
+                        nsfw_checker = gr.Checkbox(label='NSFW', value=True, elem_id="chk_nsfw", interactive=True)
                         model_type = gr.Radio(["All"] + list(self.prelude.model_type.keys()),
                                               show_label=False, value='All', elem_id="rad_model_type",
                                               interactive=True).style(full_width=True)

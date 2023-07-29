@@ -48,7 +48,7 @@ class MiaoshouRuntime(object):
         self._ds_cover_gallery: gr.Dataset = None
         self._ds_my_models: gr.Dataset = None
         self._ds_my_model_covers: gr.Dataset = None
-        self._allow_nsfw: bool = False
+        self._allow_nsfw: bool = True
         self._model_source: str = "civitai.com"  # civitai is the default model source
         self._my_model_source: str = "civitai.com"
         self._git_address: str = "https://github.com/miaoshouai/miaoshouai-assistant.git"
@@ -170,7 +170,7 @@ class MiaoshouRuntime(object):
         else:
             self.logger.error(f"ds models is null")
 
-    def get_images_html(self, search: str = '', chk_nsfw: bool = False, model_type: str = 'All') -> t.List[str]:
+    def get_images_html(self, search: str = '', chk_nsfw: bool = True, model_type: str = 'All') -> t.List[str]:
         self.logger.info(f"get_image_html: model_type = {model_type}, and search pattern = '{search}'")
 
         model_cover_thumbnails = []
@@ -477,7 +477,7 @@ class MiaoshouRuntime(object):
 
         return checkgroup
 
-    def set_nsfw(self, search='', nsfw_checker=False, model_type='All') -> t.Dict:
+    def set_nsfw(self, search='', nsfw_checker=True, model_type='All') -> t.Dict:
         self._allow_nsfw = nsfw_checker
         new_list = self.get_images_html(search, model_type)
         if self._ds_models is None:
@@ -487,7 +487,7 @@ class MiaoshouRuntime(object):
         self._ds_models.samples = new_list
         return self._ds_models.update(samples=new_list)
 
-    def search_model(self, search='', chk_nsfw=False, model_type='All') -> t.Dict:
+    def search_model(self, search='', chk_nsfw=True, model_type='All') -> t.Dict:
         if self._ds_models is None:
             self.logger.error(f"_ds_models is not initialized")
             return {}
@@ -599,7 +599,7 @@ class MiaoshouRuntime(object):
                 htmlDetail += f"<tr><td>Type:</td><td>{m['type']}</td></tr>"
             if latest_version.get('baseModel'):
                 htmlDetail += f"<tr><td>Base Model:</td><td>{latest_version['baseModel']}</td></tr>"
-            htmlDetail += f"<tr><td>NFSW:</td><td>{m.get('nsfw') if m.get('nsfw') is not None else 'false'}</td></tr>"
+            htmlDetail += f"<tr><td>NFSW:</td><td>{m.get('nsfw') if m.get('nsfw') is not None else 'true'}</td></tr>"
             if m.get('tags') and isinstance(m.get('tags'), list):
                 htmlDetail += f"<tr><td>Tags:</td><td>"
                 for t in m['tags']:
